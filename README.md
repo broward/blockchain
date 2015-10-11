@@ -10,11 +10,19 @@ Goals:
 
 2)  Host the schema
 
+		Schema works
+		http://nodemy-blockchain.herokuapp.com/
+
 3)  Message feed into schema
 
 4)  Translate sql to graph db
+		
+		Using neo4j as the graph db because it's hosted free on heroku
 
 5)  host graph db
+
+		https://app.graphenedb.com/dbs/app41881550/overview
+		
 
 6)  message feed/demo page
 
