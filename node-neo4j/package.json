@@ -1,0 +1,10 @@
+{
+  "name": "neo4j",
+  "version": "1.0.0",
+  "description": "neo4j",
+  "main": "app.js",
+  "build-type": "b",
+  "dependencies": {
+    "node-neo4j": "2.0.3"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "merkle",
+  "version": "1.0.0",
+  "description": "merkle",
+  "main": "app.js",
+  "build-type": "b",
+  "dependencies": {
+    "merkle": "0.3.1"
+  }
+}
