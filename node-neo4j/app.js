@@ -29,63 +29,34 @@ for (var i = 0; i < 10; i++) {
         if (err) {
             console.log('error:' + err);
         } else {
-            var x = node.sequence + node._id;
-            console.log(node + ' id#' + x);
 
-            console.log("even? " + isEven(x));
+            // skip root node
+            if (node._id > 0) {
+                console.log(node + ' id#' + node._id);
+                var parentId = 0;
 
-            var parentId = 0;
-            if (isEven(x)) {
-                parentId = (node.sequence/ 2) + node._id;
+                var index = node._id + 1;
+                if (isEven(index)) {
+                    console.log(' i am even');
+                    parentId = (node._id) / 2;
+                } else {
+                    console.log(' i am odd');
+                    parentId = (node._id - 1) / 2;
+                }
 
-                // update for left child var
-                db.updateNode(parentId, {
-                    leftChild: node.sequence
-                }, function(err, node) {
+                db.insertRelationship(node._id, parentId, 'RELATIONSHIP_TYPE', {
+                    child: 'or parent',
+                }, function(err, relationship) {
                     if (err) {
-                        console.log('error:' + err)
+                        console.log('error:' + err);
+                        throw err;
                     }
 
-                    if (node === true) {
-                        console.log('updated node');
-                    } else {
-                        console.log('node not found');
-                    }
-                });
-            } else {
-                parentId = ((node.sequence -1)/ 2) + node._id;
-
-                // update for right child var
-                // update our parent for binary tree
-                db.updateNode(parentId, {
-                    rightChild: node.sequence
-                }, function(err, node) {
-                    if (err) {
-                        console.log('error:' + err)
-                    }
-
-                    if (node === true) {
-                        console.log('updated node');
-                    } else {
-                        console.log('node not found');
-                    }
+                    // Output relationship properties.
+                    console.log(relationship.data);
                 });
             }
         }
     });
-
-
-    /* db.updateNode(i, {
-        leftChild: ' updated my left child'
-    }, function(err, node) {
-        if (err) {
-            console.log('error:' + err)
-        }
-
-        if (node === true) {
-            console.log('updated node');
-        } else {
-            console.log('node not found');
-        }
-    }); */
 }
+
