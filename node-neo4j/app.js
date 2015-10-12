@@ -38,14 +38,16 @@ for (var i = 0; i < 10; i++) {
                 var index = node._id + 1;
                 if (isEven(index)) {
                     console.log(' i am even');
-                    parentId = (node._id) / 2;
+                    parentId = (node._id + 1) / 2;
                 } else {
                     console.log(' i am odd');
-                    parentId = (node._id - 1) / 2;
+                    parentId = (node._id) / 2;
                 }
 
+                console.log("node=" + node._id);
+                console.log('parent= ' + parentId);
                 db.insertRelationship(node._id, parentId, 'RELATIONSHIP_TYPE', {
-                    child: 'or parent',
+                    child: 'or parent'
                 }, function(err, relationship) {
                     if (err) {
                         console.log('error:' + err);
