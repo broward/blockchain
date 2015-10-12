@@ -18,17 +18,25 @@ db.cypherQuery('MATCH (data) DELETE data RETURN count(data)', function(err, resu
 })
 
 
+for (var i = 0; i < 24; i++) {
+	go(i, function() {
+      	console.log('worked?');
+    });
+}
 
-for (var i = 0; i < 10; i++) {
+
+function go(loop, callback) {
     db.insertNode({
-        name: "node " + i,
+        name: "node " + loop,
         leftChild: '',
         rightChild: '',
-        sequence: i
+        sequence: loop
     }, function(err, node) {
         if (err) {
             console.log('error:' + err);
         } else {
+            console.log('loop is ' + loop);
+            loop++;
 
             // skip root node
             if (node._id > 0) {
@@ -56,9 +64,9 @@ for (var i = 0; i < 10; i++) {
 
                     // Output relationship properties.
                     console.log(relationship.data);
+                    callback();
                 });
             }
         }
     });
 }
-
