@@ -19,8 +19,8 @@ db.cypherQuery('MATCH (data) DELETE data RETURN count(data)', function(err, resu
 
 
 for (var i = 0; i < 24; i++) {
-	go(i, function() {
-      	console.log('worked?');
+    go(i, function() {
+        console.log('worked?');
     });
 }
 
@@ -58,6 +58,20 @@ function go(loop, callback) {
                 console.log("node=" + node._id);
                 console.log('parent= ' + parentId);
                 db.insertRelationship(node._id, parentId, relId, {
+                    child: 'or parent'
+                }, function(err, relationship) {
+                    if (err) {
+                        console.log('error:' + err);
+                        throw err;
+                    }
+
+                    // Output relationship properties.
+                    console.log(relationship.data);
+                    callback();
+                });
+
+                var p = node._id - 1;
+                db.insertRelationship(p, node._id, "Sequence", {
                     child: 'or parent'
                 }, function(err, relationship) {
                     if (err) {
