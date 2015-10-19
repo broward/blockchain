@@ -13,7 +13,7 @@ db.cypherQuery('MATCH (data) DELETE data RETURN count(data)', function(err, resu
         console.log('error:' + err);
         throw err;
     } else {
-        console.log(result);
+        console.log('result=' + result);
     }
 })
 
@@ -42,19 +42,22 @@ function go(loop, callback) {
             if (node._id > 0) {
                 console.log(node + ' id#' + node._id);
                 var parentId = 0;
+                var relId = "Left Child";
 
                 var index = node._id + 1;
                 if (isEven(index)) {
                     console.log(' i am even');
-                    parentId = (node._id + 1) / 2;
+                    parentId = ((node._id + 1) / 2) - 1;
+                    relId = "Left Child";
                 } else {
                     console.log(' i am odd');
-                    parentId = (node._id) / 2;
+                    parentId = ((node._id) / 2) - 1;
+                    relId = 'Right Child';
                 }
 
                 console.log("node=" + node._id);
                 console.log('parent= ' + parentId);
-                db.insertRelationship(node._id, parentId, 'RELATIONSHIP_TYPE', {
+                db.insertRelationship(node._id, parentId, relId, {
                     child: 'or parent'
                 }, function(err, relationship) {
                     if (err) {
